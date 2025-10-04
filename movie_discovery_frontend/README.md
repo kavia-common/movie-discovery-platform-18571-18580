@@ -1,82 +1,92 @@
-# Lightweight React Template for KAVIA
+# Movie Discovery Frontend
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+Bold, dark-themed React app to discover movies via TMDB: search, recommendations, trailers, ratings, watchlist, and Jira visualization.
+
+## Stack
+
+- Vite + React + TypeScript
+- Tailwind CSS (Ocean Professional theme)
+- React Router v6
+- Context + Reducer with localStorage
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Header with search bar
+- Tabs: Recommendations, Search Results, Watchlist, Jira
+- Movie detail modal with YouTube trailer
+- Local ratings and watchlist (persisted to localStorage)
+- Jira board visualization (columns by status)
+- Loading skeletons and error states
 
 ## Getting Started
 
-In the project directory, you can run:
+1) Install dependencies:
+   npm install
 
-### `npm start`
+2) Create .env from .env.example:
+   cp .env.example .env
+   # Put your TMDB API key in VITE_TMDB_API_KEY
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3) Run in development (port 3000):
+   npm run dev
+   # Open http://localhost:3000
 
-### `npm test`
+4) Build for production:
+   npm run build
+   npm run preview  # serves build on port 3000
 
-Launches the test runner in interactive watch mode.
+## Environment Variables
 
-### `npm run build`
+- VITE_TMDB_API_KEY: Your TMDB API key (required for search/recommendations)
+- VITE_TMDB_API_BASE: Defaults to https://api.themoviedb.org/3
+- VITE_TMDB_IMAGE_BASE: Defaults to https://image.tmdb.org/t/p
+- VITE_YOUTUBE_EMBED_BASE: Defaults to https://www.youtube.com/embed/
+- VITE_JIRA_BASE_URL: Jira base URL, e.g., https://your-domain.atlassian.net
+- VITE_JIRA_EMAIL: Jira account email
+- VITE_JIRA_API_TOKEN: Jira API token
+- VITE_JIRA_PROJECT_KEY: Jira project key (e.g., MDP)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If Jira env vars are not set, the Jira page shows placeholder demo data.
 
-## Customization
+Note: Calling Jira directly from the browser with Basic Auth may fail due to CORS. In production, use a server-side proxy to handle Jira credentials and requests.
 
-### Colors
+## Project Structure
 
-The main brand colors are defined as CSS variables in `src/App.css`:
+- src/index.tsx: Entry with Router and AppStateProvider
+- src/App.tsx: App shell + header + tabs
+- src/routes.tsx: Route definitions
+- src/context/AppState.tsx: Watchlist/ratings state with localStorage persistence
+- src/components/*: UI components (HeaderSearch, MovieCard, MovieGrid, RatingStars, WatchlistButton, TrailerPlayer, MovieModal)
+- src/pages/*: Page components (Home, SearchResults, Watchlist, JiraView)
+- src/services/*: tmdbClient and jiraClient
 
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
+## Theme
 
-### Components
+Ocean Professional (Bold):
+- Background: #000000
+- Surface: #1F2937
+- Text: #FFFFFF
+- Primary: #F97316
+- Secondary/Success: #10B981
+- Error: #EF4444
+- Gradient: from-orange-500/20 to-black
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+Tailwind is configured accordingly; see tailwind.config.js and src/styles/tailwind.css.
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+## Routing
 
-## Learn More
+- /: Home with recommendations (TMDB Popular)
+- /search?q=: Search results
+- /watchlist: Your locally saved watchlist
+- /jira: Jira board visualization
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Accessibility
 
-### Code Splitting
+- Buttons and form controls include labels and roles where applicable.
+- Modal is focusable via buttons and can be closed with the Close button.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Notes
 
-### Analyzing the Bundle Size
+- Keep your TMDB key in .env; never commit secrets.
+- Jira integration is read-only and designed for proxy-based usage in production.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

@@ -1,0 +1,48 @@
+/* Tailwind base layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App base theme with Ocean Professional */
+:root {
+  --bg: #000000;
+  --surface: #1F2937;
+  --text: #FFFFFF;
+  --primary: #F97316;
+  --secondary: #10B981;
+  --error: #EF4444;
+}
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.gradient-accent {
+  background-image: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(0,0,0,1));
+}
+
+.card {
+  @apply bg-surface/80 backdrop-blur rounded-2xl border border-white/10 shadow-glow;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center font-bold rounded-xl transition-all;
+}
+
+.btn-primary {
+  @apply btn bg-primary text-black hover:brightness-110 active:scale-95;
+}
+
+.btn-secondary {
+  @apply btn bg-secondary text-black hover:brightness-110 active:scale-95;
+}
+
+.input {
+  @apply bg-surface/70 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/50 outline-none focus:ring-2 focus:ring-primary/50;
+}
+
+.tab {
+  @apply px-4 py-2 rounded-xl font-semibold transition-colors;
+}

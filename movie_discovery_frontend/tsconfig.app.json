@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src",
+    "src/vite-env.d.ts",
+    "src/types/env.d.ts",
+    "src/types/jsx.d.ts"
+  ]
+}
